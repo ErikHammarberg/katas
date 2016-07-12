@@ -42,4 +42,11 @@ public class RomanModelTest {
 		String result = romanModelSUT.convertArabToRoman(3);
 		assertEquals(expectedOutcome, result);
 	}
+	
+	@Test
+	public void testFour() {
+		String expectedOutcome = "IV";
+		String result = romanModelSUT.convertArabToRoman(4);
+		assertEquals(expectedOutcome, result);
+	}
 }
