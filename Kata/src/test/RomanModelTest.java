@@ -49,4 +49,25 @@ public class RomanModelTest {
 		String result = romanModelSUT.convertArabToRoman(4);
 		assertEquals(expectedOutcome, result);
 	}
+	
+	@Test
+	public void testNine() {
+		String expectedOutcome = "IX";
+		String result = romanModelSUT.convertArabToRoman(9);
+		assertEquals(expectedOutcome, result);
+	}
+	
+	@Test
+	public void testHastings() {
+		String expectedOutcome = "MLXVI";
+		String result = romanModelSUT.convertArabToRoman(1066);
+		assertEquals(expectedOutcome, result);
+	}
+	
+	@Test
+	public void testBerlinUnited() {
+		String expectedOutcome = "MCMLXXXIX";
+		String result = romanModelSUT.convertArabToRoman(1989);
+		assertEquals(expectedOutcome, result);
+	}
 }
