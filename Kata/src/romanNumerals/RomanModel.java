@@ -24,22 +24,21 @@ public class RomanModel {
 		convertArabToRoman();
 	}
 	private void addNextLitteral() {
+		System.out.println("Looking for literal, arabnum is: "
+				+ currentArabNumberValue);
 		RomanLiterals[] values = RomanLiterals.values();
 		for(int i =  values.length - 1; i >= 0; i-- ){
 			int itValue = values[i].getValue(); 
+			System.out.println("Checking if num fits: " + itValue);
 			
 			if(itValue <= currentArabNumberValue && checkRepeatRule(values[i])){
 				addLitteral(values[i]);
+				System.out.println(itValue + " fits");
 				return;
 			}
 			else if(findSubtractionConstruct(values[i])){
+				System.out.println("Found subtraction!" );
 				return;
-			
-			}else if (itValue < currentArabNumberValue) {
-					if(checkRepeatRule(values[i])){
-						addLitteral(values[i]);
-						return;
-					}
 			}
 		}
 		throw new RuntimeException("Cannot find a matching number, error in code");
@@ -52,11 +51,14 @@ public class RomanModel {
 	
 	private boolean findSubtractionConstruct(RomanLiterals baseLiterals) {
 		try{
+			System.out.println("Looking for reductions for "+ baseLiterals.getValue());
 			for(RomanLiterals subtractor: baseLiterals.getReducableBy()){
 				int differential = baseLiterals.getValue() - subtractor.getValue();
+				System.out.println("Reducing by " + subtractor.getValue() + " gives " + differential);
 				if(this.currentArabNumberValue >= differential) {
 					currentArabNumberValue -= differential;
 					resultingRomanString.append(subtractor.toString() + baseLiterals.toString());
+					System.out.println("Which is correct");
 					return true;
 				}
 			}
@@ -69,6 +71,9 @@ public class RomanModel {
 		int length = this.resultingRomanString.length();
 		if(length == 0) {
 			return true;
+		}
+		if(!romanLiteral.isRepeatable){
+			return !resultingRomanString.substring(length, length).equals(romanLiteral.toString());
 		}
 		if(romanLiteral.isRepeatable){
 			for(int i = length - 1 ; i > length - 4; i--  ) {
